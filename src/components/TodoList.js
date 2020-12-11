@@ -1,6 +1,8 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import TodoItem from './TodoItem';
+import {useDispatch, useSelector} from 'react-redux';
+import {todoThunkActions} from '../modules/todo';
 
 const TodoListBlock = styled.div`
   flex: 1;
@@ -9,14 +11,29 @@ const TodoListBlock = styled.div`
 `;
 
 function TodoList() {
-    return (
-        <TodoListBlock>
-            <TodoItem text="프로젝트 생성하기" done={true} />
-            <TodoItem text="컴포넌트 스타일링 하기" done={true} />
-            <TodoItem text="Context 만들기" done={false} />
-            <TodoItem text="기능 구현하기" done={false} />
-        </TodoListBlock>
-    );
+  const {dateKey, todos} = useSelector(state => state.todo);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(todoThunkActions.loadTodos(dateKey));
+  }, [dateKey]);
+
+  const onToggle = (id) => {
+    dispatch(todoThunkActions.toggleTodo(id));
+  };
+
+  const onRemove = (id) => {
+    dispatch(todoThunkActions.removeTodo(id));
+  };
+
+  return (
+      <TodoListBlock>
+        {todos && todos.map(todo => (
+            <TodoItem key={todo.id} onToggle={onToggle}
+                      onRemove={onRemove} {...todo}/>
+        ))}
+      </TodoListBlock>
+  );
 }
 
 export default TodoList;
