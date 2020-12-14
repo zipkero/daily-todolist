@@ -1,4 +1,5 @@
 import createStorage from "../util/createStorage";
+import uniqid from 'uniqid';
 
 const delay = n => new Promise(resolve => setTimeout(resolve, n));
 const TODO_KEY = 'todolist';
@@ -11,10 +12,13 @@ const todoApi = {
         if (!todoInfo.hasOwnProperty(key)) {
             todoInfo[key] = [];
         }
+        const id = uniqid();
         todoInfo[key].push({
-            ...todo
+            ...todo,
+            id: id,
         });
         storage.set(todoInfo);
+        return id;
     },
     getTodos: async (key) => {
         await delay(500);

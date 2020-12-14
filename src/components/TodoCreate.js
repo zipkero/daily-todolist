@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import { MdAdd } from 'react-icons/md';
+import React, {useState} from 'react';
+import styled, {css} from 'styled-components';
+import {MdAdd} from 'react-icons/md';
+import {useDispatch} from 'react-redux';
+import {todoActionCreators} from '../modules/todo';
 
 const CircleButton = styled.button`
   background: #38d9a9;
+
   &:hover {
     background: #63e6be;
   }
+
   &:active {
     background: #20c997;
   }
@@ -33,17 +37,20 @@ const CircleButton = styled.button`
 
   transition: 0.125s all ease-in;
   ${props =>
-        props.open &&
-        css`
-      background: #ff6b6b;
-      &:hover {
-        background: #ff8787;
-      }
-      &:active {
-        background: #fa5252;
-      }
-      transform: translate(-50%, 50%) rotate(45deg);
-    `}
+          props.open &&
+          css`
+            background: #ff6b6b;
+
+            &:hover {
+              background: #ff8787;
+            }
+
+            &:active {
+              background: #fa5252;
+            }
+
+            transform: translate(-50%, 50%) rotate(45deg);
+          `}
 `;
 
 const InsertFormPositioner = styled.div`
@@ -73,24 +80,38 @@ const Input = styled.input`
 `;
 
 function TodoCreate() {
-    const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
 
-    const onToggle = () => setOpen(!open);
+  const [open, setOpen] = useState(false);
+  const [text, setText] = useState('');
 
-    return (
-        <>
-            {open && (
-                <InsertFormPositioner>
-                    <InsertForm>
-                        <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
-                    </InsertForm>
-                </InsertFormPositioner>
-            )}
-            <CircleButton onClick={onToggle} open={open}>
-                <MdAdd />
-            </CircleButton>
-        </>
-    );
+  const onToggle = () => setOpen(!open);
+
+  const onChangeText = (e) => {
+    setText(e.target.value);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    dispatch(todoActionCreators.addTodo(text));
+    setText('');
+    setOpen(false);
+  };
+
+  return (
+      <>
+        {open && (
+            <InsertFormPositioner>
+              <InsertForm onSubmit={onSubmit}>
+                <Input value={text} onChange={onChangeText} autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요"/>
+              </InsertForm>
+            </InsertFormPositioner>
+        )}
+        <CircleButton onClick={onToggle} open={open}>
+          <MdAdd/>
+        </CircleButton>
+      </>
+  );
 }
 
 export default TodoCreate;

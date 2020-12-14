@@ -3,7 +3,7 @@ import ko from 'date-and-time/locale/ko';
 
 const dateFormat = "YYYY-MM-DD";
 
-export const getDateKeyFromDate = (prevDate, format = dateFormat) => {
+export const getDateKeyFromDate = (prevDate = new Date(), format = dateFormat) => {
     return date.format(prevDate, format);
 }
 
