@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { ReactChildren } from 'react'
+import styled from 'styled-components'
 
 const TodoTemplateBlock = styled.div`
   width: 512px;
@@ -14,10 +14,14 @@ const TodoTemplateBlock = styled.div`
   margin: 96px auto 32px;
   display: flex;
   flex-direction: column;
-`;
+`
 
-function TodoTemplate({ children }) {
-    return <TodoTemplateBlock>{children}</TodoTemplateBlock>;
+interface Props {
+  children: ReactChildren
 }
 
-export default TodoTemplate;
+function TodoTemplate ({ children }: Props) {
+  return <TodoTemplateBlock>{children}</TodoTemplateBlock>
+}
+
+export default TodoTemplate

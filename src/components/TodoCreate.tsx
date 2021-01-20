@@ -1,12 +1,18 @@
-import React, { useState } from 'react';
-import styled, { css } from 'styled-components';
-import { MdAdd } from 'react-icons/md';
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import { MdAdd } from "react-icons/md";
 
-const CircleButton = styled.button`
+type CircleButtonProps = {
+  open: boolean;
+};
+
+const CircleButton = styled.button<CircleButtonProps>`
   background: #38d9a9;
+
   &:hover {
     background: #63e6be;
   }
+
   &:active {
     background: #20c997;
   }
@@ -32,16 +38,19 @@ const CircleButton = styled.button`
   justify-content: center;
 
   transition: 0.125s all ease-in;
-  ${props =>
-        props.open &&
-        css`
+  ${(props) =>
+    props.open &&
+    css`
       background: #ff6b6b;
+
       &:hover {
         background: #ff8787;
       }
+
       &:active {
         background: #fa5252;
       }
+
       transform: translate(-50%, 50%) rotate(45deg);
     `}
 `;
@@ -72,25 +81,25 @@ const Input = styled.input`
   box-sizing: border-box;
 `;
 
-function TodoCreate() {
-    const [open, setOpen] = useState(false);
+function TodoCreate(): JSX.Element {
+  const [open, setOpen] = useState<boolean>(false);
 
-    const onToggle = () => setOpen(!open);
+  const onToggle = (): void => setOpen(!open);
 
-    return (
-        <>
-            {open && (
-                <InsertFormPositioner>
-                    <InsertForm>
-                        <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
-                    </InsertForm>
-                </InsertFormPositioner>
-            )}
-            <CircleButton onClick={onToggle} open={open}>
-                <MdAdd />
-            </CircleButton>
-        </>
-    );
+  return (
+    <>
+      {open && (
+        <InsertFormPositioner>
+          <InsertForm>
+            <Input autoFocus placeholder="할 일을 입력 후, Enter 를 누르세요" />
+          </InsertForm>
+        </InsertFormPositioner>
+      )}
+      <CircleButton onClick={onToggle} open={open}>
+        <MdAdd />
+      </CircleButton>
+    </>
+  );
 }
 
 export default TodoCreate;
