@@ -1,27 +1,27 @@
-import React from 'react'
-import { createGlobalStyle } from 'styled-components'
-import TodoTemplate from './components/TodoTemplate'
-import TodoHead from './components/TodoHead'
-import TodoList from './components/TodoList'
-import TodoCreate from './components/TodoCreate'
+import React from "react";
+import { createGlobalStyle } from "styled-components";
+import TodoTemplate from "./components/TodoTemplate";
+import TodoHead from "./components/TodoHead";
+import TodoList from "./components/TodoList";
+import TodoCreate from "./components/TodoCreate";
 
 const GlobalStyle = createGlobalStyle`
   body {
     background: #e9ecef;
   }
-`
+`;
 
-function App (): JSX.Element {
+function App(): JSX.Element {
   return (
     <React.Fragment>
-      <GlobalStyle/>
+      <GlobalStyle />
       <TodoTemplate>
-        <TodoHead/>
-        <TodoList/>
-        <TodoCreate/>
+        <TodoHead />
+        <TodoList />
+        <TodoCreate />
       </TodoTemplate>
     </React.Fragment>
-  )
+  );
 }
 
 export default App

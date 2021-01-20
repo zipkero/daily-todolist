@@ -27,7 +27,7 @@ const TodoHeadDateBlock = styled.div`
 `;
 
 function TodoHeadDate({ selectedKey }: TodoHeadDateProps): JSX.Element {
-  const currentDate: string = getDateFromDateKey(selectedKey);
+  const currentDate: Date = getDateFromDateKey(selectedKey);
   return (
     <TodoHeadDateBlock>
       <h1>{getDisplayDate(currentDate)}</h1>

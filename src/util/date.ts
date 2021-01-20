@@ -25,13 +25,13 @@ export const getDateFromDateKey = (
 };
 
 export const getDisplayDate = (
-  dateKey: string,
+  currentDate: Date,
   format: string = dateFormat
 ) => {
-  return date.format(dateKey, format);
+  return date.format(currentDate, format);
 };
 
-export const getDisplayDay = (dateKey: string, format: string = "dddd") => {
+export const getDisplayDay = (currentDate: Date, format: string = "dddd") => {
   date.locale(ko);
-  return date.format(dateKey, format);
+  return date.format(currentDate, format);
 };
